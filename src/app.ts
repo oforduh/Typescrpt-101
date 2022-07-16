@@ -2,6 +2,7 @@ import { Invoice } from "./classes/invoice.js";
 import { Payment } from "./classes/payments.js";
 import { IsPerson } from "./interfaces/isPerson.js";
 import { HasFormatter } from "./interfaces/HasFormatter.js";
+import { ListTemplate } from "./classes/ListTemplates.js";
 
 const anchor = document.querySelector("a")!;
 console.log(anchor.href);
@@ -24,11 +25,18 @@ form.addEventListener("submit", (e: Event) => {
     } else {
       doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
     }
+    generateTemplate.render(doc, type.value, "end");
+
     console.log(doc);
   } catch (error) {
     console.log(error);
   }
 });
+
+// Tutorial 17
+// rendering HTML Template
+const ul = document.querySelector(".item-list") as HTMLUListElement;
+let generateTemplate = new ListTemplate(ul);
 
 // class and interface tutorial starts here
 // const invOne = new Invoice("mario", "work on the mario website", 300);
@@ -75,16 +83,15 @@ form.addEventListener("submit", (e: Event) => {
 // // Tutorial 16
 // // interfaces with classes
 // assigning formatter interface to the object
-let docOne: HasFormatter;
-let docTwo: HasFormatter;
+// let docOne: HasFormatter;
+// let docTwo: HasFormatter;
 
-docOne = new Invoice("yoshi", "web work", 250);
-docTwo = new Payment("mario", "pluming work", 400);
+// docOne = new Invoice("yoshi", "web work", 250);
+// docTwo = new Payment("mario", "pluming work", 400);
 
-// making sure docs contains object for the formatter types
-let docs: HasFormatter[] = [];
-docs.push(docOne, docTwo);
-console.log(docs);
-
+// // making sure docs contains object for the formatter types
+// let docs: HasFormatter[] = [];
+// docs.push(docOne, docTwo);
+// console.log();
 
 // class and interface tutorial end here

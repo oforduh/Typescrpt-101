@@ -11,28 +11,25 @@ const tofrom = document.querySelector("#tofrom");
 const details = document.querySelector("#details");
 const amount = document.querySelector("#amount");
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    try {
-        let doc;
-        // Tutorial 20
-        // Tupple
-        let values = [
-            tofrom.value,
-            details.value,
-            amount.valueAsNumber,
-        ];
-        if (type.value === "invoice") {
-            doc = new Invoice(...values);
-        }
-        else {
-            doc = new Payment(...values);
-        }
-        generateTemplate.render(doc, type.value, "end");
-        console.log(doc);
+  e.preventDefault();
+  try {
+    let doc;
+    if (!tofrom.value || !details.value || !amount.valueAsNumber) return;
+
+    // Tutorial 20
+    // Tupple
+    let values = [tofrom.value, details.value, amount.valueAsNumber];
+
+    if (type.value === "invoice") {
+      doc = new Invoice(...values);
+    } else {
+      doc = new Payment(...values);
     }
-    catch (error) {
-        console.log(error);
-    }
+    generateTemplate.render(doc, type.value, "end");
+    console.log(doc);
+  } catch (error) {
+    console.log(error);
+  }
 });
 // Tutorial 17
 // rendering HTML Template
